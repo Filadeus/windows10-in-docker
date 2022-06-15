@@ -10,7 +10,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     git \
     wget \
     apt-transport-https \
-    software-properties-common 
+    software-properties-common \
+    qemu-system-gui \
 
 RUN mkdir /home/windows10
 WORKDIR /home/windows10
@@ -36,7 +37,12 @@ RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
-    && tee -a start.sh <<< ' \' \
-
+    && tee -a start.sh <<< '-enable-kvm \' \
+    && tee -a start.sh <<< '-drive file=windows10.img,if=virtio \' \
+    && tee -a start.sh <<< '-net nic -net user,hostname=windows10vm \' \
+    && tee -a start.sh <<< '-boot d -cdrom /home/windows10/windows10.iso \' \
+    && tee -a start.sh <<< '-boot g -cdrom /home/windows10/virtio-win.iso \' \
+    && tee -a start.sh <<< '-m 4G \' \
+    && tee -a start.sh <<< '-name "windows 10" \' \
 
 CMD ./start.sh
