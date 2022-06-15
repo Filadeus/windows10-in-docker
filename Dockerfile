@@ -30,3 +30,13 @@ RUN find . -type f -name 'Win10*.iso' -exec sh -c 'x="{}"; mv "$x" "windows10.is
 RUN find . -type f -name 'virtio-win*.iso' -exec sh -c 'x="{}"; mv "$x" "virtio-win.iso"' \;
 
 RUN qemu-img create -f qcow2 windows10.img 120G
+RUN apt install -y qemu-system-gui x11-apps
+
+RUN touch start.sh \
+    && chmod +x ./start.sh \
+    && tee -a start.sh <<< '#!/bin/sh' \
+    && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
+    && tee -a start.sh <<< ' \' \
+
+
+CMD ./start.sh
