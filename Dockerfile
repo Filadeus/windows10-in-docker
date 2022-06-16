@@ -37,9 +37,10 @@ RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
+    && tee -a start.sh <<< ' \' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
-    && tee -a start.sh <<< '-cpu host -smp 8,cores=4 \' \
+    && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
     && tee -a start.sh <<< '-hda ./windows10.img \' \
     && tee -a start.sh <<< '-net nic -net user,hostname=windows10vm \' \
     && tee -a start.sh <<< '-boot d -drive file=/home/windows10/virtio-win.iso,media=cdrom \' \
