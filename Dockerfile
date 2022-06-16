@@ -48,7 +48,7 @@ RUN touch start.sh \
     && tee -a start.sh <<< '-boot menu=on \' \
     && tee -a start.sh <<< '-boot c \' \
     && tee -a start.sh <<< '-vga vmware \' \
-    && tee -a start.sh <<< '-device usb-tablet \' \
+    && tee -a start.sh <<< '-usb -device usb-kbd -device usb-tablet \' \
     && tee -a start.sh <<< '-name "windows 10" \'
 
 CMD ./start.sh
