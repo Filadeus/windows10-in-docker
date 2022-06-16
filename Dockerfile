@@ -11,7 +11,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     wget \
     apt-transport-https \
     software-properties-common \
-    qemu-system-gui \
+    qemu-system-gui
 
 RUN mkdir /home/windows10
 WORKDIR /home/windows10
@@ -32,17 +32,23 @@ RUN find . -type f -name 'virtio-win*.iso' -exec sh -c 'x="{}"; mv "$x" "virtio-
 
 RUN qemu-img create -f qcow2 windows10.img 120G
 RUN apt install -y qemu-system-gui x11-apps
+RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 
 RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
-    && tee -a start.sh <<< '-drive file=windows10.img,if=virtio \' \
+    && tee -a start.sh <<< '-cpu host -smp 8,cores=4 \' \
+    && tee -a start.sh <<< '-hda ./windows10.img \' \
     && tee -a start.sh <<< '-net nic -net user,hostname=windows10vm \' \
-    && tee -a start.sh <<< '-boot d -cdrom /home/windows10/windows10.iso \' \
-    && tee -a start.sh <<< '-boot g -cdrom /home/windows10/virtio-win.iso \' \
+    && tee -a start.sh <<< '-boot d -drive file=/home/windows10/virtio-win.iso,media=cdrom \' \
+    && tee -a start.sh <<< '-drive file=/home/windows10/windows10.iso,media=cdrom \' \
     && tee -a start.sh <<< '-m 4G \' \
-    && tee -a start.sh <<< '-name "windows 10" \' \
+    && tee -a start.sh <<< '-boot menu=on \' \
+    && tee -a start.sh <<< '-boot c \' \
+    && tee -a start.sh <<< '-vga vmware \' \
+    && tee -a start.sh <<< '-device usb-tablet \' \
+    && tee -a start.sh <<< '-name "windows 10" \'
 
 CMD ./start.sh
