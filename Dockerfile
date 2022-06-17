@@ -36,10 +36,11 @@ RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
     && tee -a start.sh <<< 'FILE=./windows10.iso \' \
-    && tee -a start.sh <<< 'if test -f "$FILE"; then \' \
+    && tee -a start.sh <<< 'if [-f "$FILE"]; then \' \
     && tee -a start.sh <<< 'exec pwsh Fido.ps1 -Win 10 -Ed Pro -Lang English International \' \
+    && tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\; ' \
     && tee -a start.sh <<< 'fi \' \
-    && tee -a start.sh <<< 'exec find . -type f -name "Win10*.iso" -exec sh -c 'x="{}"; mv "$x" "windows10.iso"' \; \' \
+   #&& tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec sh -c '\'x="\"{}"\"; mv "\"$x"\" "\"windows10.iso"\"'\' \; \' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
     && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
