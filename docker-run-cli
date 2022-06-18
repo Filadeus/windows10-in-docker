@@ -1,1 +1,1 @@
-docker run --rm -e "DISPLAY=${DISPLAY:-:0}" -v /mnt/wslg/.X11-unix:/tmp/.X11-unix --device /dev/kvm windows10
+sudo docker run -e "DISPLAY=${DISPLAY:-:0}" -v /mnt/wslg/.X11-unix:/tmp/.X11-unix --device /dev/kvm --name "windows10-in-docker" git.efimio.ru/efim/windows10-in-docker

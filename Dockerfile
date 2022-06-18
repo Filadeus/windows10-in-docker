@@ -34,11 +34,11 @@ RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 
 RUN touch start.sh \
     && chmod +x ./start.sh \
-    && tee -a start.sh <<< '#!/bin/sh' \
+    && tee -a start.sh <<< '#!/bin/bash' \
     && tee -a start.sh <<< 'FILE=./windows10.iso \' \
-    && tee -a start.sh <<< 'if [-f "$FILE"]; then \' \
-    && tee -a start.sh <<< 'exec pwsh Fido.ps1 -Win 10 -Ed Pro -Lang English International \' \
-    && tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\; ' \
+    && tee -a start.sh <<< 'if [ -f "$FILE" ] ; then \' \
+    && tee -a start.sh <<< '    exec pwsh Fido.ps1 -Win 10 -Ed Pro -Lang English International \' \
+    && tee -a start.sh <<< $'   exec find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\; ' \
     && tee -a start.sh <<< 'fi \' \
    #&& tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec sh -c '\'x="\"{}"\"; mv "\"$x"\" "\"windows10.iso"\"'\' \; \' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
@@ -55,4 +55,4 @@ RUN touch start.sh \
     && tee -a start.sh <<< '-usb -device usb-kbd -device usb-tablet \' \
     && tee -a start.sh <<< '-name "windows 10" \'
 
-CMD ./start.sh
+CMD ["/bin/bash","-c","./start.sh"]
