@@ -23,7 +23,6 @@ RUN apt update
 RUN apt install -y powershell
 
 RUN wget https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1
-RUN wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1
 
 RUN wget https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
 
@@ -35,7 +34,8 @@ RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 
 RUN touch start.sh \
     && chmod +x ./start.sh \
-    && tee -a start.sh <<< '#!/bin/bash' \
+    && tee -a start.sh <<< '#!/bin/sh' \
+    && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1' \
     && tee -a start.sh <<< 'exec pwsh isoCheck.ps1 \' \
    #&& tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec sh -c '\'x="\"{}"\"; mv "\"$x"\" "\"windows10.iso"\"'\' \; \' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
