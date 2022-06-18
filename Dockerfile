@@ -23,6 +23,7 @@ RUN apt update
 RUN apt install -y powershell
 
 RUN wget https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1
+RUN wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1
 
 RUN wget https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
 
@@ -30,16 +31,7 @@ RUN find . -type f -name 'virtio-win*.iso' -exec sh -c 'x="{}"; mv "$x" "virtio-
 
 RUN qemu-img create -f qcow2 windows10.img 120G
 RUN apt install -y qemu-system-gui x11-apps
-RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
-
-RUN touch isoCheck.ps1 \
-    && tee -a isoCheck.ps1 <<< 'if (Test-Path -Path .\windows10.iso -PathType Leaf){' \
-    && tee -a isoCheck.ps1 <<< '    Write-Output "ISO present. Skipping!"' \
-    && tee -a isoCheck.ps1 <<< '}' \
-    && tee -a isoCheck.ps1 <<< 'else {' \
-    && tee -a isoCheck.ps1 <<< 'Fido.ps1 -Win 10 -Ed Pro -Lang English International' \
-    && tee -a isoCheck.ps1 <<< 'bash find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\;' \
-    && tee -a isoCheck.ps1 <<< '}'  
+RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true  
 
 RUN touch start.sh \
     && chmod +x ./start.sh \
