@@ -6,7 +6,7 @@
 
 ## TODO
 
-- [ ] **Download ISO when container is RUNNING not BUILDING**
+- [x] **Download ISO when container is RUNNING not BUILDING**
 - [ ] Might try using Makefile and m4
 - [x] Get ubuntu image
 - [x] Install necessary dependencies

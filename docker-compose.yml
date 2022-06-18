@@ -1,20 +1,17 @@
-version: '3.4'
+version: '3.9'
 
 services:
   win10:
-    container_name: windows10
-    build:
-      context: .
-      args:
-        - SIZE=120GB
-      image: windows10
-      privileged: true
-      environment:
-        - DISPLAY=${DISPLAY:-:0}
-      volumes:
-        - /mnt/wslg/.X11-unix:/tmp/.X11-unix
-        - /dev:/dev/kvm
-        - windows10-in-docker_data:/home
+    container_name: windows10-in-docker
+    build: .
+    image: windows10-in-docker
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+    volumes:
+      - /mnt/wslg/.X11-unix:/tmp/.X11-unix
+      - /dev:/dev/kvm
+      - windows10-in-docker_data:/home
 
 volumes:
   windows10-in-docker_data:

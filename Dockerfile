@@ -36,7 +36,7 @@ RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
     && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1' \
-    && tee -a start.sh <<< 'exec pwsh isoCheck.ps1 ' \
+    && tee -a start.sh <<< 'pwsh isoCheck.ps1 ' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
     && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
