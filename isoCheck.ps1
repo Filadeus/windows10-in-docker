@@ -3,6 +3,6 @@ if (Test-Path -Path .\windows10.iso -PathType Leaf){
 }
 else {
     Write-Output "ISO wasn't found. Downloading..."
-    Invoke-Item .\Fido.ps1 -Win 10 -Ed Pro -Lang English International
+    Invoke-Item (.\Fido.ps1 -Win 10 -Ed Pro -Lang English International)
     Rename-Item -Path ".\Win*.iso" -NewName "windows10.iso"
 }
