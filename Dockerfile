@@ -32,14 +32,19 @@ RUN qemu-img create -f qcow2 windows10.img 120G
 RUN apt install -y qemu-system-gui x11-apps
 RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 
+RUN touch isoCheck.ps1 \
+    && tee -a isoCheck.ps1 <<< 'if (Test-Path -Path .\windows10.iso -PathType Leaf){' \
+    && tee -a isoCheck.ps1 <<< '    Write-Output "ISO present. Skipping!"' \
+    && tee -a isoCheck.ps1 <<< '}' \
+    && tee -a isoCheck.ps1 <<< 'else {' \
+    && tee -a isoCheck.ps1 <<< 'Fido.ps1 -Win 10 -Ed Pro -Lang English International' \
+    && tee -a isoCheck.ps1 <<< 'bash find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\;' \
+    && tee -a isoCheck.ps1 <<< '}'  
+
 RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/bash' \
-    && tee -a start.sh <<< 'FILE=./windows10.iso \' \
-    && tee -a start.sh <<< 'if [ -f "$FILE" ] ; then \' \
-    && tee -a start.sh <<< '    exec pwsh Fido.ps1 -Win 10 -Ed Pro -Lang English International \' \
-    && tee -a start.sh <<< $'   exec find . -type f -name "Win10*.iso" -exec \'sh -c x="{}"; mv "$x" "windows10.iso" \' \\; ' \
-    && tee -a start.sh <<< 'fi \' \
+    && tee -a start.sh <<< 'exec pwsh isoCheck.ps1 \' \
    #&& tee -a start.sh <<< $'exec find . -type f -name "Win10*.iso" -exec sh -c '\'x="\"{}"\"; mv "\"$x"\" "\"windows10.iso"\"'\' \; \' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
