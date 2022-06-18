@@ -14,11 +14,13 @@
 - [x] Enable KVM support for better perfomance
 - [x] Install Windows 10 ISO (make it persistent)
 - [x] Write a script to start up the VM every time the container starts
-  - [x] Sata Disk 1 bus must be `VirtIO` type, storage format: `qcow2`
+  - [ ] Main HDA drive must be `VirtIO`
   - [x] NIC's device model: `VirtIO`
   - [x] Add a CDROM storage device with Windows 10 ISO
   - [x] Add a CDROM storage device with VirtIO Windows Drivers
   - [x] Minimum CPU allocation: 4. Socket: 1; Cores: 2; Threads: 2
 - [x] **Replace CMD in Dockerfile with a proper start.sh file.**
+- [ ] **Sound**
+- [ ] Look into interface perfomance issues.
 - [ ] Finish up with docker-compose.yml
 - [ ] **Cleanup Dockerfile**
