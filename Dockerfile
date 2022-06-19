@@ -40,7 +40,7 @@ RUN touch start.sh \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
     && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
-    && tee -a start.sh <<< '-drive file=./windows10.img,if=virtio, .img \' \
+    && tee -a start.sh <<< '-drive file=./windows10.img,if=virtio \' \
     && tee -a start.sh <<< '-net nic -net user,hostname=windows10vm \' \
     && tee -a start.sh <<< '-boot d -drive file=/home/windows10/virtio-win.iso,media=cdrom \' \
     && tee -a start.sh <<< '-drive file=/home/windows10/windows10.iso,media=cdrom \' \
