@@ -44,6 +44,7 @@ RUN touch start.sh \
     && tee -a start.sh <<< '-net nic -net user,hostname=windows10vm \' \
     && tee -a start.sh <<< '-boot d -drive file=/home/windows10/virtio-win.iso,media=cdrom \' \
     && tee -a start.sh <<< '-drive file=/home/windows10/windows10.iso,media=cdrom \' \
+    && tee -a start.sh <<< '-audiodev alsa,id=snd0,out.try-poll=off -device ich9-intel-hda -device hda-output,audiodev=snd0 \' \
     && tee -a start.sh <<< '-m 4G \' \
     && tee -a start.sh <<< '-boot menu=on \' \
     && tee -a start.sh <<< '-boot c \' \
