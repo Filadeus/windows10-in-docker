@@ -21,6 +21,7 @@
   - [x] Minimum CPU allocation: 4. Socket: 1; Cores: 2; Threads: 2
 - [x] **Replace CMD in Dockerfile with a proper start.sh file.**
 - [ ] **Sound**
+- [ ] Add SPICE and noVNC output support
 - [ ] Look into interface perfomance issues.
 - [ ] Finish up with docker-compose.yml
 - [ ] **Cleanup Dockerfile**
