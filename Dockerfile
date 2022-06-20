@@ -19,8 +19,8 @@ WORKDIR /home/windows10
 RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 
-RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz
-RUN tar -xvf v1.3.0.tar.gz
+#RUN wget https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz
+#RUN tar -xvf v1.3.0.tar.gz
 
 RUN apt update
 RUN apt install -y powershell
@@ -41,8 +41,6 @@ RUN touch start.sh \
     && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1' \
     && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/launchNoVNC.sh' \
     && tee -a start.sh <<< 'pwsh isoCheck.ps1' \
-    && tee -a start.sh <<< 'chmod +x ./launchNoVNC.sh' \
-    && tee -a start.sh <<< './launchNoVNC.sh &>/dev/null &' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
     && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
