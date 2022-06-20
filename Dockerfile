@@ -39,8 +39,9 @@ RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
     && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1' \
-    && tee -a start.sh <<< 'wget '
-    && tee -a start.sh <<< 'pwsh isoCheck.ps1 ' \
+    && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/launchNoVNC.sh'
+    && tee -a start.sh <<< 'pwsh isoCheck.ps1' \
+    && tee -a start.sh <<< 'chmod +x ./launchNoVNC.sh' \
     && tee -a start.sh <<< './launchNoVNC.sh' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
