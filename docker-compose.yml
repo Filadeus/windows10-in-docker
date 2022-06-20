@@ -2,16 +2,37 @@ version: '3.9'
 
 services:
   win10:
-    container_name: windows10-in-docker
-    build: .
-    image: windows10-in-docker
+    image: git.efimio.ru/efim/windows10-in-docker:latest
     privileged: true
+    devices:
+      - /dev/kvm:/dev/kvm
     environment:
       - DISPLAY=${DISPLAY:-:0}
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=900
+      - DISPLAY=novnc:0
     volumes:
       - /mnt/wslg/.X11-unix:/tmp/.X11-unix
-      - /dev:/dev/kvm
       - windows10-in-docker_data:/home
+    depends_on:
+      - novnc
+    networks:
+      - windows10
+
+  novnc:
+    image: theasp/novnc:latest
+    environment:
+      - DISPLAY_WIDTH=1600
+      - DISPLAY_HEIGHT=928
+      - RUN_XTERM=no
+      - RUN_FLUXBOX=no
+    ports:
+      - "8080:8080"
+    networks:
+      - windows10
+
+networks:
+  windows10:
 
 volumes:
   windows10-in-docker_data:

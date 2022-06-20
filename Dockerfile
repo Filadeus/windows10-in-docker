@@ -43,7 +43,6 @@ RUN touch start.sh \
     && tee -a start.sh <<< 'pwsh isoCheck.ps1' \
     && tee -a start.sh <<< 'chmod +x ./launchNoVNC.sh' \
     && tee -a start.sh <<< './launchNoVNC.sh &>/dev/null &' \
-    && tee -a start.sh <<< 'netstat -tulpn | grep :6080' \
     && tee -a start.sh <<< 'exec qemu-system-x86_64 \' \
     && tee -a start.sh <<< '-enable-kvm \' \
     && tee -a start.sh <<< '-cpu host -smp 4,cores=2 \' \
@@ -55,7 +54,7 @@ RUN touch start.sh \
     && tee -a start.sh <<< '-m 4G \' \
     && tee -a start.sh <<< '-boot menu=on \' \
     && tee -a start.sh <<< '-boot c \' \
-    && tee -a start.sh <<< '-vga virtio \' \
+    && tee -a start.sh <<< '-vga std \' \
     && tee -a start.sh <<< '-usb -device usb-kbd -device usb-tablet \' \
     && tee -a start.sh <<< '-name "windows 10" \'
 
