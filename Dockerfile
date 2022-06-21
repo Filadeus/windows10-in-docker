@@ -1,4 +1,4 @@
-FROM docker.io/ubuntu:20.04 AS build
+FROM jlesage/baseimage-gui:ubuntu-20.04 AS build
 SHELL ["/bin/bash", "-c"]
 
 RUN export DEBIAN_FRONTEND=noninteractive \
