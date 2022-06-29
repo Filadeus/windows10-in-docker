@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   win10:
-    image: git.efimio.ru/efim/windows10-in-docker:latest
+    image: sethwals/windows10-in-docker
     privileged: true
     devices:
       - /dev/kvm:/dev/kvm
