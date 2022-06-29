@@ -1,1 +1,1 @@
-sudo docker run -d -e "DISPLAY=${DISPLAY:-:0}" -e "DISPLAY_WIDTH=1600" -e "DISPLAY_HEIGHT=900"  -v /mnt/wslg/.X11-unix:/tmp/.X11-unix --device /dev/kvm --name windows10-in-docker git.efimio.ru/efim/windows10-in-docker
+sudo docker run -d -e "DISPLAY=${DISPLAY:-:0}" -e "DISPLAY_WIDTH=1600" -e "DISPLAY_HEIGHT=900"  -v /mnt/wslg/.X11-unix:/tmp/.X11-unix --device /dev/kvm --name windows10-in-docker sethwals/windows10-in-docke

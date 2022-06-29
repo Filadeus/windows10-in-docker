@@ -27,7 +27,7 @@ services:
       - RUN_XTERM=no
       - RUN_FLUXBOX=no
     ports:
-      - "8080:8080"
+      - "8090:8080"
     networks:
       - windows10
 

@@ -38,8 +38,8 @@ RUN chown $(id -u):$(id -g) /dev/kvm 2>/dev/null || true
 RUN touch start.sh \
     && chmod +x ./start.sh \
     && tee -a start.sh <<< '#!/bin/sh' \
-    && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/isoCheck.ps1' \
-    && tee -a start.sh <<< 'wget https://git.efimio.ru/efim/windows10-in-docker/raw/branch/master/launchNoVNC.sh' \
+    && tee -a start.sh <<< 'wget https://raw.githubusercontent.com/Filadeus/windows10-in-docker/master/isoCheck.ps1' \
+    && tee -a start.sh <<< 'wget https://raw.githubusercontent.com/Filadeus/windows10-in-docker/master/launchNoVNC.sh' \
     && tee -a start.sh <<< 'pwsh isoCheck.ps1' \
     && tee -a start.sh <<< 'chmod +x ./launchNoVNC.sh' \
     && tee -a start.sh <<< './launchNoVNC.sh &>/dev/null &' \
