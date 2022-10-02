@@ -3,7 +3,7 @@ if (Test-Path -Path .\windows10.iso -PathType Leaf){
 }
 else {
     Write-Output "[$(Get-Date)] ISO wasn't found. Downloading..."
-    & .\Fido.ps1 -Win 10 -Ed Pro -Lang English International
+    & .\Fido.ps1 -Win 10 -Ed Pro -Lang English International -Arch x64
     Write-Output "[$(Get-Date)] ISO downloaded."
     Rename-Item -Path ".\Win*.iso" -NewName "windows10.iso"
     Write-Output "[$(Get-Date)] Done."
